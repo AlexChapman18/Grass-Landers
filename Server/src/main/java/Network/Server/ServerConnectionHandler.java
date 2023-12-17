@@ -5,6 +5,7 @@ import Network.Shared.Packet.PacketDefinition.ClientboundChatPacket;
 import Network.Shared.Packet.PacketDefinition.ServerboundDisconnectPacket;
 import Network.Shared.Packet.PacketListener;
 import Network.Shared.Packet.ServerPacketListener;
+import Server.Server;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

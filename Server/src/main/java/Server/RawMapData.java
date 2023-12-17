@@ -54,4 +54,8 @@ public class RawMapData {
     public int[] getLayer(int index) {
         return layersData[index];
     }
+
+    public int[][] getLayersData() {
+        return layersData;
+    }
 }

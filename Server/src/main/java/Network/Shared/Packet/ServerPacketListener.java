@@ -1,10 +1,10 @@
 package Network.Shared.Packet;
 
-import Network.Server.Server;
+import Server.Server;
 import Network.Server.ServerConnectionHandler;
 import Network.Shared.Packet.PacketDefinition.*;
 import Network.Server.ServerPlayer;
-import Shared.Packet.PacketDefinition.*;
+import Server.RawMapData;
 
 // Contains Handlers for every function
 public class ServerPacketListener implements PacketListener {
@@ -24,9 +24,12 @@ public class ServerPacketListener implements PacketListener {
         ServerPlayer newPlayer = new ServerPlayer(packet.getName(), packet.getAuthCode(), sch);
         this.serverPlayer = newPlayer;
         server.addPlayer(newPlayer);
-
         ClientboundChatPacket cbsp = new ClientboundChatPacket("Network/Server", packet.getName() + ", has joined the server");
+
+        RawMapData rmd = this.server.getRawMapData();
+        ClientboundMapPacket cbmp = new ClientboundMapPacket(rmd.getMapName(), rmd.getWidth(), rmd.getHeight(), rmd.getNumLayers(), rmd.getLayerIDs(), rmd.getLayersData());
         sch.sendPacketsAll(cbsp);
+        sch.sendPacket(cbmp);
     }
 
     public void handlePlayerChat(ClientboundChatPacket packet) {

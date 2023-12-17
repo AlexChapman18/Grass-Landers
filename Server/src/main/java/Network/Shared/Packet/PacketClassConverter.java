@@ -1,7 +1,6 @@
 package Network.Shared.Packet;
 
 import Network.Shared.Packet.PacketDefinition.*;
-import Shared.Packet.PacketDefinition.*;
 import Network.Shared.Util.FriendlyByteR;
 
 import java.util.HashMap;

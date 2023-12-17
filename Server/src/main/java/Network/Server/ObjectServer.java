@@ -2,6 +2,7 @@ package Network.Server;
 
 import Network.Shared.Packet.PacketEncoder;
 import Network.Shared.Packet.PacketDecoder;
+import Server.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
