@@ -13,7 +13,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         FriendlyByteR friendlyIn = new FriendlyByteR(in);
-        int packetID = friendlyIn.readVarInt();
+        int packetID = friendlyIn.readInt();
         out.add(PacketClassConverter.ID_TO_CONSTRUCTOR.get(packetID).apply(friendlyIn));
     }
 }

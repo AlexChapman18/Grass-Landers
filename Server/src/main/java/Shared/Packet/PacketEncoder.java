@@ -12,7 +12,7 @@ public class PacketEncoder extends MessageToByteEncoder<Packet<?>> {
     protected void encode(ChannelHandlerContext ctx, Packet<?> packet, ByteBuf out) {
         int packetID = PacketClassConverter.CLASS_TO_ID.get(packet.getClass());
         FriendlyByteR friendlyByteBuf = new FriendlyByteR(out);
-        friendlyByteBuf.writeVarInt(packetID);
+        friendlyByteBuf.writeInt(packetID);
         packet.write(friendlyByteBuf);
     }
 

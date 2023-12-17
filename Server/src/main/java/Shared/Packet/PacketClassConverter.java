@@ -1,9 +1,6 @@
 package Shared.Packet;
 
-import Shared.Packet.PacketDefinition.ClientboundChatPacket;
-import Shared.Packet.PacketDefinition.ServerboundChatPacket;
-import Shared.Packet.PacketDefinition.ServerboundDisconnectPacket;
-import Shared.Packet.PacketDefinition.ServerboundLoginPacket;
+import Shared.Packet.PacketDefinition.*;
 import Shared.Util.FriendlyByteR;
 
 import java.util.HashMap;
@@ -20,6 +17,7 @@ public class PacketClassConverter {
                 put(ServerboundLoginPacket.class, 2);
                 put(ServerboundChatPacket.class, 3);
                 put(ServerboundDisconnectPacket.class, 4);
+                put(ClientboundMapPacket.class, 5);
             }};
 
     //    Used to get the constructor from a packetID (DECODING)
@@ -29,5 +27,6 @@ public class PacketClassConverter {
                 put(PacketClassConverter.CLASS_TO_ID.get(ServerboundLoginPacket.class), ServerboundLoginPacket::new);
                 put(PacketClassConverter.CLASS_TO_ID.get(ServerboundChatPacket.class), ServerboundChatPacket::new);
                 put(PacketClassConverter.CLASS_TO_ID.get(ServerboundDisconnectPacket.class), ServerboundDisconnectPacket::new);
+                put(PacketClassConverter.CLASS_TO_ID.get(ClientboundMapPacket.class), ClientboundMapPacket::new);
             }};
 }

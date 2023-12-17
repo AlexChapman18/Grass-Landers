@@ -26,12 +26,12 @@ public class ServerboundLoginPacket implements Packet<ServerPacketListener> {
     }
 
     public void write(FriendlyByteR friendlyByteBuf) {
-        friendlyByteBuf.writeVarInt(this.authCode);
-        friendlyByteBuf.writeUtf(this.name);
+        friendlyByteBuf.writeInt(this.authCode);
+        friendlyByteBuf.writeString(this.name);
     }
 
     public ServerboundLoginPacket(FriendlyByteR friendlyByteBuf) {
-        this.authCode = friendlyByteBuf.readVarInt();
-        this.name = friendlyByteBuf.readUtf();
+        this.authCode = friendlyByteBuf.readInt();
+        this.name = friendlyByteBuf.readString();
     }
 }

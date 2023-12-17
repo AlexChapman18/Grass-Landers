@@ -19,7 +19,7 @@ public class FriendlyByteR {
     }
 
 
-    public FriendlyByteR writeVarInt(int value) {
+    public FriendlyByteR writeInt(int value) {
         while((value & -128) != 0) {
             this.writeByte(value & 127 | 128);
             value >>>= 7;
@@ -28,7 +28,7 @@ public class FriendlyByteR {
         this.writeByte(value);
         return this;
     }
-    public int readVarInt() {
+    public int readInt() {
         int i = 0;
         int j = 0;
 
@@ -44,19 +44,19 @@ public class FriendlyByteR {
         return i;
     }
 
-    public FriendlyByteR writeUtf(String p_130071_) {
-        return this.writeUtf(p_130071_, 32767);
+    public FriendlyByteR writeString(String text) {
+        return this.writeString(text, 32767);
     }
-    public FriendlyByteR writeUtf(String p_130073_, int p_130074_) {
-        if (p_130073_.length() > p_130074_) {
-            throw new EncoderException("String too big (was " + p_130073_.length() + " characters, max " + p_130074_ + ")");
+    public FriendlyByteR writeString(String text, int maxLen) {
+        if (text.length() > maxLen) {
+            throw new EncoderException("String too big (was " + text.length() + " characters, max " + maxLen + ")");
         } else {
-            byte[] abyte = p_130073_.getBytes(StandardCharsets.UTF_8);
-            int i = getMaxEncodedUtfLength(p_130074_);
+            byte[] abyte = text.getBytes(StandardCharsets.UTF_8);
+            int i = getMaxEncodedUtfLength(maxLen);
             if (abyte.length > i) {
                 throw new EncoderException("String too big (was " + abyte.length + " bytes encoded, max " + i + ")");
             } else {
-                this.writeVarInt(abyte.length);
+                this.writeInt(abyte.length);
                 this.writeBytes(abyte);
                 return this;
             }
@@ -64,12 +64,12 @@ public class FriendlyByteR {
     }
 
 
-    public String readUtf() {
-        return this.readUtf(32767);
+    public String readString() {
+        return this.readString(32767);
     }
-    public String readUtf(int maxUtfLength) {
+    public String readString(int maxUtfLength) {
         int i = getMaxEncodedUtfLength(maxUtfLength);
-        int j = this.readVarInt();
+        int j = this.readInt();
         if (j > i) {
             throw new DecoderException("The received encoded string buffer length is longer than maximum allowed (" + j + " > " + i + ")");
         } else if (j < 0) {
@@ -89,7 +89,29 @@ public class FriendlyByteR {
     }
 
 
-//    ByteBuf Functions
+
+
+    public FriendlyByteR writeIntArray(int[] intArray) {
+        this.writeInt(intArray.length);
+
+        for(int i : intArray) {
+            this.writeInt(i);
+        }
+
+        return this;
+    }
+    public int[] readIntArray() {
+        int i = this.readInt();
+        int[] aint = new int[i];
+
+        for(int j = 0; j < aint.length; ++j) {
+            aint[j] = this.readInt();
+        }
+
+        return aint;
+    }
+
+    //  ByteBuf Functions
     public ByteBuf writeByte(int p_130470_) {
         return this.source.writeByte(p_130470_);
     }
@@ -105,10 +127,7 @@ public class FriendlyByteR {
     public ByteBuf writeBytes(byte[] p_130493_) {
         return this.source.writeBytes(p_130493_);
     }
-    public String toString(int p_130454_, int p_130455_, Charset p_130456_) {
-        return this.source.toString(p_130454_, p_130455_, p_130456_);
+    public String toString(int index, int length, Charset charset) {
+        return this.source.toString(index, length, charset);
     }
-
-
-
 }

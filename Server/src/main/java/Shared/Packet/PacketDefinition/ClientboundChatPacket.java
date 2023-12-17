@@ -26,12 +26,12 @@ public class ClientboundChatPacket implements Packet<ServerPacketListener> {
     }
 
     public void write(FriendlyByteR friendlyByteBuf) {
-        friendlyByteBuf.writeUtf(this.message);
-        friendlyByteBuf.writeUtf(this.group);
+        friendlyByteBuf.writeString(this.message);
+        friendlyByteBuf.writeString(this.group);
     }
 
     public ClientboundChatPacket(FriendlyByteR friendlyByteBuf) {
-        this.message = friendlyByteBuf.readUtf();
-        this.group = friendlyByteBuf.readUtf();
+        this.message = friendlyByteBuf.readString();
+        this.group = friendlyByteBuf.readString();
     }
 }

@@ -3,10 +3,7 @@ package Shared.Packet;
 import Server.Server;
 import Server.ServerConnectionHandler;
 import Server.ServerPlayer;
-import Shared.Packet.PacketDefinition.ClientboundChatPacket;
-import Shared.Packet.PacketDefinition.ServerboundChatPacket;
-import Shared.Packet.PacketDefinition.ServerboundDisconnectPacket;
-import Shared.Packet.PacketDefinition.ServerboundLoginPacket;
+import Shared.Packet.PacketDefinition.*;
 
 // Contains Handlers for every function
 public class ServerPacketListener implements PacketListener {
@@ -31,7 +28,8 @@ public class ServerPacketListener implements PacketListener {
         sch.sendPacketsAll(cbsp);
     }
 
-    //    Handler function for ChatPacket
+    public void handlePlayerChat(ClientboundChatPacket packet) {
+    }
     public void handlePlayerChat(ServerboundChatPacket packet) {
         if (packet.getMessage().equals("/cringe")){
             ClientboundChatPacket cbcp = new ClientboundChatPacket("Server", "You Smell");
@@ -51,5 +49,9 @@ public class ServerPacketListener implements PacketListener {
         server.removePlayer(serverPlayer);
         ClientboundChatPacket cbsp = new ClientboundChatPacket("Server", serverPlayer.getName() + ", has left the server");
         sch.sendPacketsAll(cbsp);
+    }
+
+    public void handleMap(ClientboundMapPacket packet) {
+        System.out.println("Map of name: " + packet.getMapName());
     }
 }
