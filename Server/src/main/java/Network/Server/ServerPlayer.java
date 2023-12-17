@@ -1,4 +1,4 @@
-package Server;
+package Network.Server;
 
 import io.netty.channel.Channel;
 

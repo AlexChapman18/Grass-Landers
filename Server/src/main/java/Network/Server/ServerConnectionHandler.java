@@ -1,10 +1,10 @@
-package Server;
+package Network.Server;
 
-import Shared.Packet.Packet;
-import Shared.Packet.PacketDefinition.ClientboundChatPacket;
-import Shared.Packet.PacketDefinition.ServerboundDisconnectPacket;
-import Shared.Packet.PacketListener;
-import Shared.Packet.ServerPacketListener;
+import Network.Shared.Packet.Packet;
+import Network.Shared.Packet.PacketDefinition.ClientboundChatPacket;
+import Network.Shared.Packet.PacketDefinition.ServerboundDisconnectPacket;
+import Network.Shared.Packet.PacketListener;
+import Network.Shared.Packet.ServerPacketListener;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -38,7 +38,7 @@ public class ServerConnectionHandler extends SimpleChannelInboundHandler<Packet<
         this.address = this.channel.remoteAddress();
 
 //        Send welcome packet and add to the list of channels
-        Packet packet = new ClientboundChatPacket("Server", "Welcome to the server");
+        Packet packet = new ClientboundChatPacket("Network/Server", "Welcome to the server");
         sendPacket(packet);
         allChannels.add(ctx.channel());
     }

@@ -1,6 +1,6 @@
-package Shared.Packet;
+package Network.Shared.Packet;
 
-import Shared.Util.FriendlyByteR;
+import Network.Shared.Util.FriendlyByteR;
 
 // Every packet should have an associated packet Listener
 // Thats what this is saying

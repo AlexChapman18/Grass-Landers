@@ -1,7 +1,8 @@
-package Shared.Packet;
+package Network.Shared.Packet;
 
+import Network.Shared.Packet.PacketDefinition.*;
 import Shared.Packet.PacketDefinition.*;
-import Shared.Util.FriendlyByteR;
+import Network.Shared.Util.FriendlyByteR;
 
 import java.util.HashMap;
 import java.util.Map;

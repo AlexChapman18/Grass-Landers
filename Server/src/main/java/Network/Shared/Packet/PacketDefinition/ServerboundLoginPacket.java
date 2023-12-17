@@ -1,8 +1,8 @@
-package Shared.Packet.PacketDefinition;
+package Network.Shared.Packet.PacketDefinition;
 
-import Shared.Packet.Packet;
-import Shared.Packet.ServerPacketListener;
-import Shared.Util.FriendlyByteR;
+import Network.Shared.Packet.Packet;
+import Network.Shared.Packet.ServerPacketListener;
+import Network.Shared.Util.FriendlyByteR;
 
 public class ServerboundLoginPacket implements Packet<ServerPacketListener> {
     private int authCode;

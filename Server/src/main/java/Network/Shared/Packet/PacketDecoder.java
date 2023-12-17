@@ -1,6 +1,6 @@
-package Shared.Packet;
+package Network.Shared.Packet;
 
-import Shared.Util.FriendlyByteR;
+import Network.Shared.Util.FriendlyByteR;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;

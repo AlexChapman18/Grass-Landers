@@ -1,4 +1,4 @@
-package Shared.Util;
+package Network.Shared.Util;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.DecoderException;

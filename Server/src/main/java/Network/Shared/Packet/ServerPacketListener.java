@@ -1,8 +1,9 @@
-package Shared.Packet;
+package Network.Shared.Packet;
 
-import Server.Server;
-import Server.ServerConnectionHandler;
-import Server.ServerPlayer;
+import Network.Server.Server;
+import Network.Server.ServerConnectionHandler;
+import Network.Shared.Packet.PacketDefinition.*;
+import Network.Server.ServerPlayer;
 import Shared.Packet.PacketDefinition.*;
 
 // Contains Handlers for every function
@@ -24,7 +25,7 @@ public class ServerPacketListener implements PacketListener {
         this.serverPlayer = newPlayer;
         server.addPlayer(newPlayer);
 
-        ClientboundChatPacket cbsp = new ClientboundChatPacket("Server", packet.getName() + ", has joined the server");
+        ClientboundChatPacket cbsp = new ClientboundChatPacket("Network/Server", packet.getName() + ", has joined the server");
         sch.sendPacketsAll(cbsp);
     }
 
@@ -32,10 +33,10 @@ public class ServerPacketListener implements PacketListener {
     }
     public void handlePlayerChat(ServerboundChatPacket packet) {
         if (packet.getMessage().equals("/cringe")){
-            ClientboundChatPacket cbcp = new ClientboundChatPacket("Server", "You Smell");
+            ClientboundChatPacket cbcp = new ClientboundChatPacket("Network/Server", "You Smell");
             sch.sendPacket(cbcp);
         } else if (packet.getMessage().equals("/getPlayers")) {
-            ClientboundChatPacket cbcp = new ClientboundChatPacket("Server", server.getPlayers().stream().toList().toString());
+            ClientboundChatPacket cbcp = new ClientboundChatPacket("Network/Server", server.getPlayers().stream().toList().toString());
             sch.sendPacket(cbcp);
         } else{
             System.err.println(packet.getGroup() + ":" + packet.getMessage());
@@ -47,7 +48,7 @@ public class ServerPacketListener implements PacketListener {
 
     public void handleDisconnect(ServerboundDisconnectPacket packet) {
         server.removePlayer(serverPlayer);
-        ClientboundChatPacket cbsp = new ClientboundChatPacket("Server", serverPlayer.getName() + ", has left the server");
+        ClientboundChatPacket cbsp = new ClientboundChatPacket("Network/Server", serverPlayer.getName() + ", has left the server");
         sch.sendPacketsAll(cbsp);
     }
 
