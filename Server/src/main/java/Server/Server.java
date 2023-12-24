@@ -1,6 +1,7 @@
 package Server;
 
 import Network.Server.ObjectServer;
+import Network.Server.ServerConnectionHandler;
 import Network.Server.ServerPlayer;
 import Util.Xml;
 

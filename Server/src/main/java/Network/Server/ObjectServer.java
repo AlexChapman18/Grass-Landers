@@ -10,6 +10,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class ObjectServer {
 
@@ -37,8 +39,10 @@ public class ObjectServer {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(
 //                                    Calls ConnectionServerHandler, then Encodes the packet and sends it off
-                                    new PacketEncoder(),
+                                    new ProtobufVarint32FrameDecoder(),
                                     new PacketDecoder(),
+                                    new ProtobufVarint32LengthFieldPrepender(),
+                                    new PacketEncoder(),
                                     new ServerConnectionHandler(server));
                         }
                     })
@@ -51,5 +55,9 @@ public class ObjectServer {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
+    }
+
+    public static ServerConnectionHandler getSch() {
+        return sch;
     }
 }

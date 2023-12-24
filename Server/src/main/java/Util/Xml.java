@@ -48,7 +48,6 @@ public class Xml {
                     .replace("\r", "")
                     .replace(" ", "");
             int[] mapData = csvStringToIntArray(csv);
-            System.out.println(mapData);
             rawMapData.addLayer(layerID, mapData);
         }
 

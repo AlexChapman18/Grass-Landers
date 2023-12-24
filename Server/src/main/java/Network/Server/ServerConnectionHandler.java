@@ -34,6 +34,7 @@ public class ServerConnectionHandler extends SimpleChannelInboundHandler<Packet<
 //    Will be invoked when connection has been established and ready to generate traffic
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
+        System.err.println("Client Connection Made");
 //        Set address and channel
         this.channel = ctx.channel();
         this.address = this.channel.remoteAddress();
@@ -46,6 +47,7 @@ public class ServerConnectionHandler extends SimpleChannelInboundHandler<Packet<
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) {
+        System.err.println("Client Connection Lost");
         genericsFtw(new ServerboundDisconnectPacket(), this.packetListener);
         ctx.close();
     }
@@ -66,7 +68,7 @@ public class ServerConnectionHandler extends SimpleChannelInboundHandler<Packet<
     }
 
 //    Sends packets to all clients
-    public void sendPacketsAll(Packet<?> packet){
+    public static void sendPacketsAll(Packet<?> packet){
         for (Channel c : allChannels) {
             c.writeAndFlush(packet);
         }
@@ -80,10 +82,6 @@ public class ServerConnectionHandler extends SimpleChannelInboundHandler<Packet<
             }
         }
     }
-
-
-
-
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

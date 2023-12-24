@@ -19,16 +19,16 @@ public class ServerPacketListener implements PacketListener {
     }
 
     public void handleLogin(ServerboundLoginPacket packet) {
-        System.err.println("Login packet: " + packet.getAuthCode() + packet.getName());
+        System.err.println("Login packet: " + packet.getAuthCode() + "-" + packet.getName());
 
         ServerPlayer newPlayer = new ServerPlayer(packet.getName(), packet.getAuthCode(), sch);
         this.serverPlayer = newPlayer;
         server.addPlayer(newPlayer);
-        ClientboundChatPacket cbsp = new ClientboundChatPacket("Network/Server", packet.getName() + ", has joined the server");
+        ClientboundChatPacket cbcp = new ClientboundChatPacket("Network/Server", packet.getName() + ", has joined the server");
 
         RawMapData rmd = this.server.getRawMapData();
         ClientboundMapPacket cbmp = new ClientboundMapPacket(rmd.getMapName(), rmd.getWidth(), rmd.getHeight(), rmd.getNumLayers(), rmd.getLayerIDs(), rmd.getLayersData());
-        sch.sendPacketsAll(cbsp);
+        sch.sendPacketsAll(cbcp);
         sch.sendPacket(cbmp);
     }
 
@@ -46,16 +46,13 @@ public class ServerPacketListener implements PacketListener {
             ClientboundChatPacket cbcp = new ClientboundChatPacket(packet.getGroup(), packet.getMessage());
             sch.sendPacketsAll(cbcp);
         }
-
     }
 
     public void handleDisconnect(ServerboundDisconnectPacket packet) {
-        server.removePlayer(serverPlayer);
         ClientboundChatPacket cbsp = new ClientboundChatPacket("Network/Server", serverPlayer.getName() + ", has left the server");
+        server.removePlayer(serverPlayer);
         sch.sendPacketsAll(cbsp);
     }
 
-    public void handleMap(ClientboundMapPacket packet) {
-        System.out.println("Map of name: " + packet.getMapName());
-    }
+    public void handleMap(ClientboundMapPacket packet) {}
 }
